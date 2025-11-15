@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tienda</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { margin:0; padding:0; font-family: Arial, sans-serif; transition: background 0.3s; }
+    #header { text-align:center; padding:15px; }
+    #logoStore { width:120px; height:120px; object-fit:cover; border-radius:10px; margin:0 auto 10px; display:block; }
+    #logoSearch { width:60px; height:60px; object-fit:cover; border-radius:10px; display:block; margin:10px auto; }
+    #buttons { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin:10px 0; }
+    .btn { padding:10px 15px; border:none; border-radius:8px; font-size:16px; cursor:pointer; color:#fff; text-decoration:none; display:inline-block; }
+    #map { height:300px; border-radius:10px; margin:10px; }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <img id="logoStore" src="" alt="Logo Tienda" />
+    <img id="logoSearch" src="" alt="Logo Buscador" />
+  </div>
+
+  <div id="buttons"></div>
+
+  <div id="map"></div>
+
+  <!-- Firebase SDK + script que escucha DB -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getDatabase, ref as dbRef, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPWpHKVWMMQhC0HNpSAHi4nptlcHm1e8o",
+      authDomain: "catalogo-web-4a53c.firebaseapp.com",
+      projectId: "catalogo-web-4a53c",
+      storageBucket: "catalogo-web-4a53c.firebasestorage.app",
+      messagingSenderId: "434380197926",
+      appId: "1:434380197926:web:57753ba235d198462b16e7",
+      databaseURL: "https://catalogo-web-4a53c-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const logoStore = document.getElementById('logoStore');
+    const logoSearch = document.getElementById('logoSearch');
+    const buttonsDiv = document.getElementById('buttons');
+    const mapDiv = document.getElementById('map');
+
+    // Escuchar cambios en /config en tiempo real
+    onValue(dbRef(database, 'config'), (snapshot) => {
+      const cfg = snapshot.exists() ? snapshot.val() : null;
+      if (!cfg) return;
+
+      document.body.style.background = cfg.bgColor || '#ffffff';
+      document.body.style.color = cfg.textColor || '#000';
+
+      if (cfg.logoStoreURL) {
+        logoStore.src = cfg.logoStoreURL;
+        logoStore.style.display = 'block';
+      } else {
+        logoStore.style.display = 'none';
+      }
+
+      if (cfg.logoSearchURL) {
+        logoSearch.src = cfg.logoSearchURL;
+        logoSearch.style.display = 'block';
+      } else {
+        logoSearch.style.display = 'none';
+      }
+
+      // Limpiar botones y recrear
+      buttonsDiv.innerHTML = '';
+      const createBtn = (text, href, target = '_blank') => {
+        const a = document.createElement('a');
+        a.href = href;
+        a.className = 'btn';
+        a.textContent = text;
+        a.style.background = cfg.btnColor || '#28a745';
+        a.style.color = cfg.textColor || '#fff';
+        a.target = target;
+        buttonsDiv.appendChild(a);
+      };
+
+      if (cfg.showWhatsapp && cfg.whatsapp) {
+        const phone = cfg.whatsapp.replace(/\D/g,'');
+        const text = encodeURIComponent(cfg.whatsappMessage || '');
+        createBtn('WhatsApp', `https://wa.me/${phone}?text=${text}`);
+      }
+      if (cfg.showInstagram && cfg.instagram) createBtn('Instagram', cfg.instagram);
+      if (cfg.showFacebook && cfg.facebook) createBtn('Facebook', cfg.facebook);
+      if (cfg.showEmail && cfg.email) createBtn('Email', `mailto:${cfg.email}`);
+      if (cfg.showTelefono && cfg.phone) createBtn('Teléfono', `tel:${cfg.phone}`);
+
+      // Mapa
+      if (cfg.showMap && cfg.lat && cfg.lng) {
+        if (!window._map) {
+          window._map = L.map('map').setView([cfg.lat, cfg.lng], 15);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(window._map);
+          window._marker = L.marker([cfg.lat, cfg.lng]).addTo(window._map).bindPopup(cfg.address || 'Ubicación');
+        } else {
+          window._map.setView([cfg.lat, cfg.lng], 15);
+          if (window._marker) {
+            window._marker.setLatLng([cfg.lat, cfg.lng]);
+            window._marker.setPopupContent(cfg.address || 'Ubicación');
+          }
+        }
+        mapDiv.style.display = 'block';
+      } else {
+        mapDiv.style.display = 'none';
+      }
+    });
+  </script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>

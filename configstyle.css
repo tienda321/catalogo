@@ -1,0 +1,295 @@
+/* ===========================
+   GLOBAL - Estilo Aqua Sofía (v2)
+   Fondo tranquilo + sombras 3D más marcadas
+=========================== */
+body {
+  font-family: "Inter", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #EAF4F3; /* 🌤 tono tranquilo, neutro aqua */
+  color: #1A1A1A;
+  transition: background 0.6s ease-in-out;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#app h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #008C8C;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
+}
+
+#app h1:hover {
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   LABELS & INPUTS
+=========================== */
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #00B89F;
+  font-size: 17px;
+  transition: color 0.3s ease;
+}
+
+input[type="text"],
+textarea,
+input[type="color"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #b6e4de;
+  box-sizing: border-box;
+  background: #ffffff;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* 🌟 sombra 3D más marcada */
+  transition: 
+    border-color 0.25s ease,
+    box-shadow 0.4s ease,
+    transform 0.3s ease;
+}
+
+input[type="text"]:hover,
+textarea:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 184, 159, 0.25);
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #00B89F;
+  box-shadow: 0 10px 25px rgba(0, 184, 159, 0.35);
+  outline: none;
+}
+
+textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+/* ===========================
+   SELECTORES DE COLOR
+=========================== */
+.select-color {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #b6e4de;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.select-color:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 184, 159, 0.3);
+}
+
+.select-color label {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #00B89F;
+}
+
+.select-color input[type="color"] {
+  width: 50px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ===========================
+   LOGOS
+=========================== */
+.logos-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.logo-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.logo-block label {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #00B89F;
+}
+
+.logo-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #ecfaf8;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b6e4de;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 184, 159, 0.35);
+}
+
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* Botón editar */
+.edit-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  color: #00B89F;
+  transition: transform 0.3s ease;
+}
+
+.edit-btn:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 380px) {
+  .logos-row {
+    flex-direction: column;
+  }
+}
+
+/* ===========================
+   CHECKBOXES
+=========================== */
+.toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+  margin: 20px 0;
+}
+
+.toggle-group label {
+  background: #ffffff;
+  border: 1px solid #b6e4de;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.toggle-group label:hover {
+  background: #e6f9f7;
+  border-color: #00B89F;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 184, 159, 0.25);
+}
+
+.toggle-group input[type="checkbox"] {
+  transform: scale(1.3);
+  accent-color: #00B89F;
+}
+
+/* ===========================
+   MAPA
+=========================== */
+#addressDisplay {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
+  font-size: 14px;
+  border: 1px solid #b6e4de;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+#addressDisplay:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,184,159,0.25);
+}
+
+#mapConfig {
+  height: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  margin-bottom: 20px;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+#mapConfig:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,184,159,0.3);
+}
+
+/* ===========================
+   BOTÓN PRINCIPAL
+=========================== */
+button#saveBtn {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 18px;
+  font-weight: 600;
+  background: #00B89F;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 6px 18px rgba(0, 184, 159, 0.35);
+  transition: background 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+button#saveBtn:hover {
+  background: #009b88;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,184,159,0.4);
+}
+
+/* ===========================
+   INPUT FILE
+=========================== */
+.logo-container input[type="file"] {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+}

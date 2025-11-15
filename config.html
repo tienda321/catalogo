@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edición de la Tienda - Panel</title>
+
+  <!-- Leaflet + Geosearch CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css" />
+
+  <!-- Tu CSS (ya lo tenías) -->
+  <link rel="stylesheet" href="configstyle.css" />
+</head>
+<body>
+  <div id="app">
+    <h1>Edición de la Tienda</h1>
+
+    <!-- Contactos -->
+    <label>WhatsApp:</label>
+    <input type="text" id="whatsappInput" placeholder="Número de WhatsApp" />
+
+    <label>Mensaje predeterminado para WhatsApp:</label>
+    <textarea id="whatsappMessageInput" placeholder="Hola, estoy interesado/a en sus productos."></textarea>
+
+    <label>Teléfono para llamadas:</label>
+    <input type="text" id="phoneInput" placeholder="Número de teléfono" />
+
+    <label>Instagram:</label>
+    <input type="text" id="instagramInput" placeholder="Link de Instagram" />
+
+    <label>Facebook:</label>
+    <input type="text" id="facebookInput" placeholder="Link de Facebook" />
+
+    <label>Email:</label>
+    <input type="text" id="emailInput" placeholder="Correo electrónico" />
+
+    <!-- Colores -->
+    <div class="select-color">
+      <label for="bgColorInput">Color de fondo:</label>
+      <input type="color" id="bgColorInput" />
+    </div>
+
+    <div class="select-color">
+      <label for="btnColorInput">Color de botones:</label>
+      <input type="color" id="btnColorInput" />
+    </div>
+
+    <div class="select-color">
+      <label for="textColorInput">Color de texto:</label>
+      <input type="color" id="textColorInput" />
+    </div>
+
+    <!-- Logos -->
+    <div class="logos-row">
+      <div class="logo-block">
+        <label for="logoStoreInput">Logo Tienda:</label>
+        <div class="logo-container" id="logoStoreContainer">
+          <img id="logoStorePreview" src="" alt="Logo Tienda" />
+          <input type="file" id="logoStoreInput" accept="image/*" />
+          <span class="edit-btn">✏️</span>
+        </div>
+      </div>
+
+      <div class="logo-block">
+        <label for="logoSearchInput">Logo Buscador:</label>
+        <div class="logo-container" id="logoSearchContainer">
+          <img id="logoSearchPreview" src="" alt="Logo Buscador" />
+          <input type="file" id="logoSearchInput" accept="image/*" />
+          <span class="edit-btn">✏️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggles -->
+    <div class="toggle-group">
+      <label><input type="checkbox" id="showWhatsapp" /> Mostrar WhatsApp</label>
+      <label><input type="checkbox" id="showTelefono" /> Mostrar Teléfono</label>
+      <label><input type="checkbox" id="showInstagram" /> Mostrar Instagram</label>
+      <label><input type="checkbox" id="showFacebook" /> Mostrar Facebook</label>
+      <label><input type="checkbox" id="showEmail" /> Mostrar Email</label>
+      <label><input type="checkbox" id="showMap" /> Mostrar Mapa</label>
+    </div>
+
+    <!-- Mapa -->
+    <h3>Ubicación</h3>
+    <div id="addressDisplay">Cargando dirección...</div>
+    <div id="mapConfig" style="height:300px; margin:10px 0;"></div>
+
+    <!-- Botones -->
+    <div class="buttons-row">
+      <button id="saveBtn">Guardar en Firebase</button>
+      <button id="saveLocalBtn" style="display:none">Guardar localmente (solo navegador)</button>
+    </div>
+
+    <p class="hint">Los cambios se guardan en tu Realtime Database y las imágenes en Cloudinary (preset: DatosWeb).</p>
+
+    <!-- Consola visual para debug -->
+    <div id="debugConsole" style="white-space:pre-wrap; background:#111; color:#0f0; padding:10px; margin-top:20px; height:220px; overflow-y:auto; font-size:12px; border-radius:8px;"></div>
+  </div>
+
+  <!-- Dependencias JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+
+  <!-- Lógica principal -->
+  <script type="module" src="config.js"></script>
+</body>
+</html>
